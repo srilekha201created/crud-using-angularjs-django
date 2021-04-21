@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+ {% extends 'testapp/base.html'%}
+ {%block body_block%}
+
+<h1 style='color:blue;'>Employee Information Dash Board</h1><hr>
+<div ng-app="myApp" ng-controller="MyController">
+    <div ng-if=[[res]]>
+      <h3 class=[[classStyle]] role="alert" id="alt">[[msg]]</h3>
+    </div>
+  </div>
+
+ <table border='2'>
+ <thead>
+<th style='color:black;'>Employee Number</th>
+ <th style='color:black;'>Employee Name</th>&nbsp
+<th style='color:black;'>Employee Salary</th>
+ <th style='color:black;'>Employee Address</th>
+ <th style='color:black;'>Actions</th>
+ </thead>
+ {%for emp in employees %}
+ <tr>
+ <td >{{emp.eno}}</td>
+ <td>{{emp.ename}}</td>
+ <td>{{emp.esal}}</td>
+<td>{{emp.eaddr}}</td>
+<td>
+<a href="/update/{{emp.id}}"> Update</a>
+
+ <a href="/delete/{{emp.id}}">delete</a>
+</td>
+</tr>
+{%endfor%}
+</table><br>
+<a href="/create"  class='btn btn-success btn-large' >Insert New Employee</a>
+<script>
+    var myApp = angular.module("myApp", []);
+        myApp.config(function($interpolateProvider) {
+        $interpolateProvider.startSymbol('[[');
+        $interpolateProvider.endSymbol(']]');
+        });
+        myApp.controller("MyController", ["$scope", function($scope) {
+        $scope.msg = "{{msg}}";
+        $scope.classStyle = "{{classStyle}}";
+        $scope.res = "{{res}}"
+        setTimeout(myVar = function(){ document.getElementById("alt").style.display = 'none'
+      }, 3000);
+        }]);
+    </script>
+{%endblock%}

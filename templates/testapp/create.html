@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+ {% extends 'testapp/base.html'%}
+ {%block body_block%}
+ <h1>Employee Insertion Form</h1>
+ <form method="post">
+   <table border='1'>
+     {{form.as_p}}
+   </table>
+
+   {%csrf_token%}
+   <br>
+   <input type="submit" class='btn btn-primary btn-lg' value="Insert Record">
+   <a href='http://127.0.0.1:8000/' class='btn btn-lg btn-primary'>Go to home</a>
+  </form> 
+ <br>
+ <br>
+ <div ng-app="myApp" ng-controller="MyController">
+  <div ng-if=[[res]]>
+    <h3 class=[[classStyle]] role="alert" id="alt">[[msg]]</h3>
+  </div>
+</div>
+<script>
+  var myApp = angular.module("myApp", []);
+      myApp.config(function($interpolateProvider) {
+      $interpolateProvider.startSymbol('[[');
+      $interpolateProvider.endSymbol(']]');
+      });
+      myApp.controller("MyController", ["$scope", function($scope) {
+      $scope.msg = "{{msg}}";
+      $scope.classStyle = "{{classStyle}}";
+      $scope.res = "{{res}}"
+      setTimeout(function(){ document.getElementById("alt").style.display = 'none'       
+    }, 3000);
+      }]);
+  </script>
+ {%endblock%}

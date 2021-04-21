@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% extends 'testapp/base.html'%}
+{%block body_block%}
+<h1>Employee update Form</h1>
+<form  method="post">
+  {%csrf_token%}
+  Employee Number:<input type="text" name="eno" value="{{employee.eno}}"><br><br>
+  Employee Name:<input type="text" name="ename" value="{{employee.ename}}"><br><br>
+  Employee salary:<input type="text" name="esal" value="{{employee.esal}}"><br><br>
+  Employee Address:<input type="text" name="eaddr" value="{{employee.eaddr}}"><br><br>
+  <input type="submit" name="" class='btn btn-success btn-lg' value="Update Record">
+</form>
+<br>
+<br>
+<div ng-app="myApp" ng-controller="MyController">
+  <div ng-if=[[res]]>
+    <h3 class=[[classStyle]] role="alert" id="alt">[[msg]]</h3>
+  </div>
+</div>
+<script>
+  var myApp = angular.module("myApp", []);
+      myApp.config(function($interpolateProvider) {
+      $interpolateProvider.startSymbol('[[');
+      $interpolateProvider.endSymbol(']]');
+      });
+      myApp.controller("MyController", ["$scope", function($scope) {
+      $scope.msg = "{{msg}}";
+      $scope.classStyle = "{{classStyle}}";
+      $scope.res = "{{res}}"
+      setTimeout(function(){ document.getElementById("alt").style.display = 'none' }, 3000);
+      }]);
+  </script>
+{%endblock%}
